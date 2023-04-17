@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  mount Rosette::Engine => "/rosette"
+  root to: 'pages#home'
+
+  get 'home', to: 'pages#home'
 end
