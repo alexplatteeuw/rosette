@@ -1,0 +1,12 @@
+{
+  "lib/rosette/*.rb": {
+    "alternate": [
+      "spec/rosette/lib/{}_spec.rb"
+    ]
+  },
+  "bin/*": {
+    "alternate": [
+      "spec/rosette/bin/{}_spec.rb"
+    ]
+  }
+}

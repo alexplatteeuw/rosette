@@ -8,3 +8,8 @@ gem "puma"
 gem "sqlite3"
 
 gem "sprockets-rails"
+
+group :test do
+  gem "capybara"
+  gem "selenium-webdriver"
+end
