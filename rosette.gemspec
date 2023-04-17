@@ -8,7 +8,8 @@ Gem::Specification.new do |spec|
   spec.summary     = "Translations manager"
   spec.description = "Add missing translations from the interface of your application"
   spec.license     = "MIT"
-  
+  spec.homepage    = "https://github.com/alexplatteeuw/rosette"
+
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
