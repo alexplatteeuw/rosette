@@ -1,15 +1,83 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500');
+
+.text-center {
+  text-align: center;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: white;
+  margin: 5rem;
+}
+
+.form-wrapper {
+  background-color: rgb(241, 237, 237);
+  padding: 2.5rem;
+  margin: 32px auto;
+  border-radius: 0.5rem;
+  max-width: 38rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  position: relative;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-text {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: .375rem;
+  border-color: rgb(211, 211, 211);
+  border: solid 1px rgba(0, 0, 0, 0.16);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  background-color: rgb(251, 249, 249);
+}
+
+.input-text:focus {
+  outline: 1rem solid transparent;
+  outline-offset: 1rem;
+  border-color: rgb(163, 163, 163);
+}
+
+label {
+  margin-bottom: 1rem;
+}
+
+.button {
+  background-color: rgb(220, 38, 38);
+  color: white;
+  padding: 0.75rem 5rem;
+  border-color: transparent;
+  border-radius: .375rem;
+  margin: 1rem auto 0 auto;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.8s;
+}
+
+.button:hover {
+  background-color: rgb(235, 63, 54);
+}
+
+.note {
+  font-size: .75rem;
+  color: rgb(107, 114, 128);
+  margin-top: 1rem;
+}
+
+.error {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+}
+
+.locale {
+  color: rgb(220, 38, 38);
+  font-weight: 500;
+}

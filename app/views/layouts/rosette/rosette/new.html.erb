@@ -1,0 +1,28 @@
+<h1 class="text-center">Add missing translation</h1>
+
+<p class="text-center locale"><%= key %></p>
+
+<div class="form-wrapper">
+  <%= form_with scope: :translations, url: rosette.translations_path, class: 'form' do |f| %>
+    <% if @error_message %>
+      <p class="error"><%= @error_message %></p>
+    <% end %>
+
+    <%= f.hidden_field :key, value: key %>
+    <%= f.hidden_field :redirect_path, value: redirect_path %>
+
+    <%= f.fields_for :available_locales do |a| %>
+      <% Rails.configuration.i18n.available_locales.each do |locale| %>
+        <%= a.label locale, "#{locale.capitalize} translation:" %>
+        <%= a.text_field locale, required: false, label: false, class: 'input-text' %>
+      <% end %>
+    <% end %>
+
+    <%= f.button 'Submit', class: 'button' %>
+  <% end %>
+
+</div>
+
+<div class="note text-center">
+  If you prefer to add the translation directly to the yaml file, you can choose not to fill in the input field.
+</div>
