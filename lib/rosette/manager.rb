@@ -16,20 +16,24 @@ class Manager
     @keys        = normalize "#{locale}.#{key}"
     @translation = translation
   end
+  
+  def read
+    stored_translations.dig(*@keys)
+  end
 
   def create
     new_translation      = @keys.reverse.inject(@translation) { |v, k| { k => v } }
     updated_translations = deep_merge(stored_translations, new_translation)
     persist(updated_translations)
-  end
-
-  def read
-    stored_translations.dig(*@keys)
+    
+    Manager.normalize!
   end
 
   def delete
     updated_translations = delete_translation(stored_translations, @keys)
     persist(updated_translations)
+
+    Manager.normalize!
   end
 
   def delete_translation(translations, keys)

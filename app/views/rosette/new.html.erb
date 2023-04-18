@@ -12,7 +12,7 @@
     <%= f.hidden_field :redirect_path, value: redirect_path %>
 
     <%= f.fields_for :available_locales do |a| %>
-      <% Rails.configuration.i18n.available_locales.each do |locale| %>
+      <% Rosette.available_locales.each do |locale| %>
         <%= a.label locale, "#{locale.capitalize} translation:" %>
         <%= a.text_field locale, required: false, label: false, class: 'input-text' %>
       <% end %>
