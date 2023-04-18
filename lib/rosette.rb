@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "rosette/cli"
 require "rosette/controller"
 require "rosette/engine"
 require "rosette/manager"
