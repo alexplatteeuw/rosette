@@ -11,9 +11,10 @@ Gem::Specification.new do |spec|
   spec.homepage    = "https://github.com/alexplatteeuw/rosette"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+    Dir["{app,bin,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
+  spec.require_paths = ['lib']
   spec.executables << 'rosette'
 
   spec.add_dependency "i18n-tasks", '~> 1.0.12'
