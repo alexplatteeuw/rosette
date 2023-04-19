@@ -5,18 +5,17 @@ begin
   require File.join(Dir.pwd, 'config/environment')
 rescue LoadError
   puts <<~ERR
+
     Could not load your Rails app
     =============================
     Rosette assumes you have a config/environment.rb file it can load. If this is the case, please
     make sure you are using Rosette CLI from the root of your Rails application. Do not hesitate to
     raise an issue if you need further assistance.
+
   ERR
   exit 1
 end
 
 require 'rosette'
 
-command = ARGV.shift
-ARGV.clear
-
-Rosette::CLI.run(command: command)
+Rosette::CLI.run

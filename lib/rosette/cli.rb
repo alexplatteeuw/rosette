@@ -1,18 +1,47 @@
 # frozen_string_literal: true
 
+require 'tty-prompt'
+
 module Rosette
   class CLI
-    COMMANDS = %w[add remove read].freeze
-
     class << self
-      def run(command:)
-        return display_help unless command.in?(COMMANDS)
+      attr_reader :prompt, :command
 
-        ask_user_for_key
-        send(command)
+      delegate :select, :ask, to: :@prompt
+
+      def run
+        ask_for_command
+
+        return help if command == 'help'
+
+        ask_for_key
+        send command
       end
 
       private
+
+      def ask_for_command
+        @prompt = TTY::Prompt.new
+        @command = select('What do you want to achieve?') do |menu|
+          menu.choice('Read a translation', 'read')
+          menu.choice('Add a translation', 'add')
+          menu.choice('Remove a translation', 'remove')
+          menu.choice('Display help', 'help')
+        end
+      end
+
+      def ask_for_key
+        @key = ask 'Please provide the key to translation:'
+        normalize_key!
+      end
+
+      def normalize_key!
+        Rosette.available_locales.each do |locale|
+          @key = @key.delete_prefix("#{locale}.")
+        end
+      end
+
+      # COMMANDS
 
       def read
         Rosette.available_locales.each do |locale|
@@ -23,8 +52,8 @@ module Rosette
 
       def add
         Rosette.available_locales.each do |locale|
-          puts "Please enter #{locale} translation:"
-          Manager.create(locale, @key, gets.chomp)
+          translation = ask "Please enter #{locale} translation:"
+          Manager.create(locale, @key, translation)
         end
       end
 
@@ -34,28 +63,8 @@ module Rosette
         end
       end
 
-      def ask_user_for_key
-        puts 'Please provide the key to translation:'
-        @key = gets.chomp
-
-        normalize_key!
-      end
-
-      def normalize_key!
-        Rosette.available_locales.each do |locale|
-          @key.delete_prefix!("#{locale}.")
-        end
-      end
-
-      def display_help
+      def help
         puts <<~HELP
-          Usage: rosette [command]
-
-          Available commands:
-
-            read      read translation from available locales
-            add       add a translation to available locales
-            remove    remove translation from available locales
 
           For each command you must provide a key pointing to the translation.
           It can begin with or without the locale. These are all valid keys:
