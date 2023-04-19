@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Rosette::CLI do
-  before(:each) { allow(Rosette).to receive(:available_locales).and_return %w[fr en] }
+  before(:each) { allow(Rosette).to receive(:available_locales).and_return ["fr", "en"] }
 
-  describe 'read command' do
-    it 'calls the Manager for each available locale' do
-      allow(Rosette::CLI).to receive(:select).and_return 'read'
-      allow(Rosette::CLI).to receive(:ask).and_return 'fr.errors.blank'
-      allow(Manager).to receive(:read).and_return 'doit être rempli(e)', 'cannot be blank'
+  describe "read command" do
+    it "calls the Manager for each available locale" do
+      allow(Rosette::CLI).to receive(:select).and_return "read"
+      allow(Rosette::CLI).to receive(:ask).and_return "fr.errors.blank"
+      allow(Manager).to receive(:read).and_return "doit être rempli(e)", "cannot be blank"
 
       expected_output = <<~MSG
         Translation for fr is: doit être rempli(e)
@@ -18,41 +18,40 @@ RSpec.describe Rosette::CLI do
 
       expect { Rosette::CLI.run }.to output(expected_output).to_stdout
 
-      expect(Manager).to have_received(:read).with 'fr', 'errors.blank'
-      expect(Manager).to have_received(:read).with 'en', 'errors.blank'
+      expect(Manager).to have_received(:read).with "fr", "errors.blank"
+      expect(Manager).to have_received(:read).with "en", "errors.blank"
     end
   end
 
-  describe 'add command' do
-    it 'calls the Manager for each available locale' do
-      allow(Rosette::CLI).to receive(:select).and_return 'add'
-      allow(Rosette::CLI).to receive(:ask).and_return 'errors.blank', 'doit être rempli(e)', 'cannot be blank'
+  describe "add command" do
+    it "calls the Manager for each available locale" do
+      allow(Rosette::CLI).to receive(:select).and_return "add"
+      allow(Rosette::CLI).to receive(:ask).and_return "errors.blank", "doit être rempli(e)", "cannot be blank"
       allow(Manager).to receive(:create)
 
       Rosette::CLI.run
 
-      expect(Manager).to have_received(:create).with 'fr', 'errors.blank', 'doit être rempli(e)'
-      expect(Manager).to have_received(:create).with 'en', 'errors.blank', 'cannot be blank'
+      expect(Manager).to have_received(:create).with "fr", "errors.blank", "doit être rempli(e)"
+      expect(Manager).to have_received(:create).with "en", "errors.blank", "cannot be blank"
     end
   end
 
-  describe 'remove command' do
-    it 'calls the Manager for each available locale' do
-      allow(Rosette::CLI).to receive(:select).and_return 'remove'
-      allow(Rosette::CLI).to receive(:ask).and_return 'errors.blank'
+  describe "remove command" do
+    it "calls the Manager for each available locale" do
+      allow(Rosette::CLI).to receive(:select).and_return "remove"
+      allow(Rosette::CLI).to receive(:ask).and_return "errors.blank"
       allow(Manager).to receive(:delete)
 
       Rosette::CLI.run
 
-      expect(Manager).to have_received(:delete).with 'fr', 'errors.blank'
-      expect(Manager).to have_received(:delete).with 'en', 'errors.blank'
+      expect(Manager).to have_received(:delete).with "fr", "errors.blank"
+      expect(Manager).to have_received(:delete).with "en", "errors.blank"
     end
   end
 
-
-  describe 'help command' do
-    it 'calls the Manager for each available locale' do
-      allow(Rosette::CLI).to receive(:select).and_return 'help'
+  describe "help command" do
+    it "calls the Manager for each available locale" do
+      allow(Rosette::CLI).to receive(:select).and_return "help"
 
       expected_output = <<~HELP
 

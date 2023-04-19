@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'bin/rosette' do
-  let(:executable) { 'rosette' }
+RSpec.describe "bin/rosette" do
+  let(:executable) { "rosette" }
   let(:from_root)  { "cd #{Rails.root}" }
 
-  context 'when the executable is not launch from the root of the application' do
-    it 'prints an error message' do
+  context "when the executable is not launch from the root of the application" do
+    it "prints an error message" do
       message = <<~ERR
 
         Could not load your Rails app
@@ -17,7 +17,7 @@ RSpec.describe 'bin/rosette' do
         raise an issue if you need further assistance.
 
       ERR
-      
+
       # system "#{from_root} && #{executable}"
       expect { system executable }.to output(message).to_stdout_from_any_process
     end

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 begin
-  require File.join(Dir.pwd, 'config/environment')
+  require File.join(Dir.pwd, "config/environment")
 rescue LoadError
   puts <<~ERR
 
@@ -16,6 +16,6 @@ rescue LoadError
   exit 1
 end
 
-require 'rosette'
+require "rosette"
 
 Rosette::CLI.run

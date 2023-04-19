@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] = 'test'
+ENV["RAILS_ENV"] = "test"
 
-require File.expand_path('../spec/example_app/config/environment', __dir__)
+require File.expand_path("../spec/example_app/config/environment", __dir__)
 
-require 'rspec/rails'
-require 'selenium/webdriver'
+require "rspec/rails"
+require "selenium/webdriver"
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
@@ -17,7 +17,7 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
-    args: %w[headless no-sandbox disable-gpu disable-dev-shm-usage]
+    args: ["headless", "no-sandbox", "disable-gpu", "disable-dev-shm-usage"],
   )
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)

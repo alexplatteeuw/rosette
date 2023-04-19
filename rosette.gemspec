@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "lib/rosette/version"
 
 Gem::Specification.new do |spec|
@@ -14,12 +16,12 @@ Gem::Specification.new do |spec|
     Dir["{app,bin,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.require_paths = ['lib']
-  spec.executables << 'rosette'
+  spec.require_paths = ["lib"]
+  spec.executables << "rosette"
 
-  spec.add_dependency "i18n-tasks", '~> 1.0.12'
+  spec.add_dependency "i18n-tasks", "~> 1.0.12"
   spec.add_dependency "rails", "~> 7.0.0"
   spec.add_dependency "tty-prompt", "~> 0.23.1"
-  
+
   spec.add_development_dependency "rspec-rails", "~> 6.0.0"
 end

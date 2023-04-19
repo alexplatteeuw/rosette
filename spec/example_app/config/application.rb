@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "boot"
 
 require "rails"
@@ -14,6 +16,7 @@ require "rosette"
 
 module ExampleApp
   class Application < Rails::Application
+
     config.load_defaults Rails::VERSION::STRING.to_f
 
     # For compatibility with applications that use this config
@@ -26,5 +29,6 @@ module ExampleApp
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
   end
 end

@@ -1,5 +1,7 @@
-Rails.application.routes.draw do
-  root to: 'pages#home'
+# frozen_string_literal: true
 
-  get 'home', to: 'pages#home'
+Rails.application.routes.draw do
+  root to: "pages#home"
+
+  get "home", to: "pages#home"
 end

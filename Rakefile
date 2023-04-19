@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "bundler/setup"
 
 APP_RAKEFILE = File.expand_path("spec/example_app/Rakefile", __dir__)
