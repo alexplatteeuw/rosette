@@ -6,8 +6,6 @@ module Rosette
     def create
       available_locales.each { |locale, translation| Manager.create(locale, key, translation) }
 
-      Manager.normalize!
-
       redirect_to redirect_path, notice: "Translation(s) added"
     rescue StandardError => e
       @error_message = e.message
