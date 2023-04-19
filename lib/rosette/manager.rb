@@ -10,6 +10,10 @@ class Manager
     METHOD
   end
 
+  def self.normalize!
+    I18n::Tasks::CLI.start(["normalize"])
+  end
+
   private
 
     def initialize(locale, key, translation = nil)
@@ -27,14 +31,14 @@ class Manager
       updated_translations = deep_merge(stored_translations, new_translation)
       persist(updated_translations)
 
-      Manager.normalize!
+      Manager.normalize! if Rosette.normalize
     end
 
     def delete
       updated_translations = delete_translation(stored_translations, @keys)
       persist(updated_translations)
 
-      Manager.normalize!
+      Manager.normalize! if Rosette.normalize
     end
 
     def delete_translation(translations, keys)
@@ -66,10 +70,6 @@ class Manager
 
     def normalize(key)
       key.split(".").map(&:to_sym)
-    end
-
-    def self.normalize!
-      I18n::Tasks::CLI.start(["normalize"]) if Rosette.normalize
     end
 
 end

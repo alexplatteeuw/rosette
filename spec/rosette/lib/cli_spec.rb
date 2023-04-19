@@ -3,7 +3,11 @@
 require "rails_helper"
 
 RSpec.describe Rosette::CLI do
-  before(:each) { allow(Rosette).to receive(:available_locales).and_return ["fr", "en"] }
+  before(:each) do
+    allow(Rosette).to receive(:available_locales).and_return ["fr", "en"]
+    allow(Rosette::CLI).to receive(:exit_cli?).and_return false, true # loop only once
+    allow(Rosette::CLI).to receive(:exit) # do not stop rspec execution
+  end
 
   describe "read command" do
     it "calls the Manager for each available locale" do
@@ -49,14 +53,25 @@ RSpec.describe Rosette::CLI do
     end
   end
 
+  describe "normalize command" do
+    it "delegates normalization to the Manager" do
+      allow(Rosette::CLI).to receive(:select).and_return "normalize"
+      allow(Manager).to receive(:normalize!)
+
+      Rosette::CLI.run
+
+      expect(Manager).to have_received(:normalize!)
+    end
+  end
+
   describe "help command" do
-    it "calls the Manager for each available locale" do
+    it "displays help" do
       allow(Rosette::CLI).to receive(:select).and_return "help"
 
       expected_output = <<~HELP
 
-        For each command you must provide a key pointing to the translation.
-        It can begin with or without the locale. These are all valid keys:
+        For commands read/add/remove you must provide a key pointing to the translation.
+        It can begin with or without the locale. These keys are all considered equivalent:
 
           fr.activemodel.errors.blank
           en.activemodel.errors.blank
@@ -65,6 +80,17 @@ RSpec.describe Rosette::CLI do
       HELP
 
       expect { Rosette::CLI.run }.to output(expected_output).to_stdout
+    end
+  end
+
+  describe "exit command" do
+    it "exits the CLI" do
+      allow(Rosette::CLI).to receive(:select).and_return "exit_cli"
+      allow(Rosette::CLI).to receive(:exit_cli?).and_call_original
+
+      Rosette::CLI.run
+
+      expect(Rosette::CLI).to have_received(:exit).with(0)
     end
   end
 end

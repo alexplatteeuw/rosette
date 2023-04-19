@@ -12,23 +12,29 @@ module Rosette
       delegate :select, :ask, to: :@prompt
 
       def run
-        ask_for_command
+        loop do
+          ask_for_command
+          return exit 0 if exit_cli?
 
-        return help if command == "help"
+          next display_help if help?
+          next normalize! if normalize?
 
-        ask_for_key
-        send command
+          ask_for_key
+          send command
+        end
       end
 
       private
 
         def ask_for_command
-          @prompt = TTY::Prompt.new
-          @command = select("What do you want to achieve?") do |menu|
-            menu.choice("Read a translation", "read")
-            menu.choice("Add a translation", "add")
-            menu.choice("Remove a translation", "remove")
-            menu.choice("Display help", "help")
+          @prompt  = TTY::Prompt.new
+          @command = select("\nWhat do you want to achieve?") do |menu|
+            menu.choice("1. Read a translation", "read")
+            menu.choice("2. Add a translation", "add")
+            menu.choice("3. Remove a translation", "remove")
+            menu.choice("4. Normalize locales", "normalize")
+            menu.choice("5. Help", "help")
+            menu.choice("6. Exit", "exit_cli")
           end
         end
 
@@ -42,6 +48,10 @@ module Rosette
             @key = @key.delete_prefix("#{locale}.")
           end
         end
+
+        def exit_cli?  = command == "exit_cli"
+        def help?      = command == "help"
+        def normalize? = command == "normalize"
 
         # COMMANDS
 
@@ -65,11 +75,15 @@ module Rosette
           end
         end
 
-        def help
+        def normalize!
+          Manager.normalize!
+        end
+
+        def display_help
           puts <<~HELP
 
-            For each command you must provide a key pointing to the translation.
-            It can begin with or without the locale. These are all valid keys:
+            For commands read/add/remove you must provide a key pointing to the translation.
+            It can begin with or without the locale. These keys are all considered equivalent:
 
               fr.activemodel.errors.blank
               en.activemodel.errors.blank
