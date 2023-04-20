@@ -10,10 +10,6 @@ class Manager
     METHOD
   end
 
-  def self.normalize!
-    I18n::Tasks::CLI.start(["normalize"])
-  end
-
   private
 
     def initialize(locale, key, translation = nil)
@@ -70,6 +66,26 @@ class Manager
 
     def normalize(key)
       key.split(".").map(&:to_sym)
+    end
+
+    class << self
+
+      def normalize!
+        suppress_output do # HACK: disable i18n-tasks logs
+          I18n::Tasks::CLI.start(["normalize"])
+        end
+      end
+
+      private
+
+        def suppress_output
+          original_stderr = $stderr.clone
+          $stderr.reopen(File::NULL, "w")
+          yield
+        ensure
+          $stderr.reopen(original_stderr)
+        end
+
     end
 
 end
