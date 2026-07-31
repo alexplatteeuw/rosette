@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.executables << "rosette"
 
-  spec.required_ruby_version = ">= 3.2.0"
+  spec.required_ruby_version = ">= 3.3.0"
 
   spec.add_dependency "i18n-tasks", "~> 1.1"
   spec.add_dependency "rails", "~> 8.0"

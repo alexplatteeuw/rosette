@@ -7,6 +7,7 @@ AllCops:
   NewCops: disable
   Exclude:
     - "node_modules/**/*"
+    - "vendor/**/*"
 
 #################### Bundler ###############################
 
@@ -732,7 +733,7 @@ Naming/MethodName:
 Naming/MethodParameterName:
   Enabled: true
 
-Naming/PredicateName:
+Naming/PredicatePrefix:
   Enabled: false
 
 Naming/RescuedExceptionsVariableName:
