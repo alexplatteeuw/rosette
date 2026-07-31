@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "bin/rosette" do
+RSpec.describe "bin/rosette" do # rubocop:disable RSpec/DescribeClass
   let(:executable) { "rosette" }
   let(:from_root)  { "cd #{Rails.root}" }
 

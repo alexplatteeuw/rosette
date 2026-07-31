@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "adding translations", type: :feature do
-  it "works" do
+  it "records the submitted translation for every available locale" do
     visit "/home"
 
     expect(page).to have_content("Add missing translation")
