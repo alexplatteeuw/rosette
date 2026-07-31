@@ -10,7 +10,7 @@ module Rosette
     private
 
       def add_missing_translation_data(exception)
-        key = exception.message.sub(/translation missing:.+?\./, "")
+        key = exception.message.sub(/translation missing:.+?\./i, "")
 
         render_rosette_new(key, request.fullpath)
       end

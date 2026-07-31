@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rspec
   - rubocop-performance
 
@@ -1702,7 +1702,10 @@ RSpec/ExpectInHook:
 RSpec/ExpectOutput:
   Enabled: true
 
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
+  Enabled: true
+
+RSpec/SpecFilePathSuffix:
   Enabled: true
 
 RSpec/Focus:
@@ -1854,13 +1857,4 @@ RSpec/VoidExpect:
   Enabled: true
 
 RSpec/Yield:
-  Enabled: true
-
-RSpec/FactoryBot/AttributeDefinedStatically:
-  Enabled: true
-
-RSpec/FactoryBot/CreateList:
-  Enabled: true
-
-RSpec/FactoryBot/FactoryClassName:
   Enabled: true
